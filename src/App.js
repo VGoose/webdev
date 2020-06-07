@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import styled from "styled-components";
 
 function App() {
+  return <TodoList />;
+}
+
+export function TodoList() {
+  const todoItems = [];
+  return <>{todoItems}</>;
+}
+
+export function TodoListItem() {
+  const [isChecked, setIsChecked] = React.useState(false);
+  const handleClickCheckbox = () => setIsChecked(!isChecked);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <input
+        type="checkbox"
+        checked={isChecked}
+        onClick={handleClickCheckbox}
+      />
+      <TodoListDescription crossOut={isChecked}>
+        My first item
+      </TodoListDescription>
+      <button>X</button>
     </div>
   );
 }
+
+const TodoListDescription = styled.span`
+  text-decoration: ${(props) => (props.crossOut ? "line-through" : "none")};
+`;
 
 export default App;
